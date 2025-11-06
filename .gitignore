@@ -1,2 +1,13 @@
+# Visual Studio / VSCode / build artifacts
 /main1.cpp
 /SFML.lnk
+*.exe
+*.dll
+/build/
+.vscode/
+*.obj
+*.o
+CMakeFiles/
+CMakeCache.txt
+Makefile
+cmake_install.cmake
