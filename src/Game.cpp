@@ -13,23 +13,23 @@ Game::Game()
         std::cerr << "Failed to load resources\n";
     }
     // фон — прямоугольник или часть атласа
-    backgroundSprite.setTexture(Resources::atlas);
+    backgroundSprite.setTexture(Resources::sprites);
     backgroundSprite.setTextureRect(sf::IntRect(0,0,SCREEN_WIDTH,SCREEN_HEIGHT));
 
-    map.setAtlasTexture(Resources::atlas);
+    map.setAtlasTexture(Resources::sprites);
     if (!map.loadFromFile("assets/maps/level00.txt")) {
         std::cerr << "Не удалось загрузить карту!\n";
     }
 
     // создаём игрока
     player = std::make_unique<PlayerTank>();
-    player->setAtlasTexture(Resources::atlas);
+    player->setAtlasTexture(Resources::sprites);
     player->setTextureRect(sf::IntRect(0, 672, 32, 32)); // поправь координаты
 
     // враги
     for (int i = 0; i < 3; ++i) {
         auto e = std::make_unique<EnemyTank>();
-        e->setAtlasTexture(Resources::atlas);
+        e->setAtlasTexture(Resources::sprites);
         e->setTextureRect(sf::IntRect(32, 672, 32, 32)); // поправь
         enemies.push_back(std::move(e));
     }
