@@ -5,9 +5,9 @@
 struct Resources {
     static sf::Texture sprites;
 
-    static bool load() {
-        if (!sprites.loadFromFile("assets/textures/sprites.png")) {
-            std::cerr << "Ошибка: не удалось загрузить game_atlas.png\n";
+    static bool load(const std::string& path = "assets/textures/sprites.png") {
+        if (!sprites.loadFromFile(path)) {
+            std::cerr << "Resources::load: failed to load " << path << std::endl;
             return false;
         }
         return true;

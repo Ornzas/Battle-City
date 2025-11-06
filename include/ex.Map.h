@@ -2,18 +2,18 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
+#include "Constants.h"
 
 class Map {
 public:
     Map();
+    void setAtlas(sf::Texture& texture);
     bool loadFromFile(const std::string& filename);
-    void setAtlasTexture(const sf::Texture& t) { tileset = &t; tile.setTexture(*tileset); }
-    void draw(sf::RenderWindow& window, const sf::Vector2f& offset);
+    void draw(sf::RenderWindow& window);
     bool isBlocked(const sf::FloatRect& bounds) const;
 
 private:
-    const sf::Texture* tileset = nullptr;
-    sf::Sprite tile;
+    sf::Texture texture;
+    sf::Sprite sprite;
     std::vector<std::vector<int>> grid;
-    int tileSize = TILE_SIZE;
 };
