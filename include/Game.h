@@ -4,9 +4,8 @@
 #include <memory>
 #include "Constants.h"
 #include "Map.h"
-
-class PlayerTank;
-class EnemyTank;
+#include "PlayerTank.h"
+#include "EnemyTank.h"
 
 class Game {
 public:

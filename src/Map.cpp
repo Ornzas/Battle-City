@@ -27,13 +27,36 @@ bool Map::loadFromFile(const std::string& filename) {
 void Map::draw(sf::RenderWindow& window, const sf::Vector2f& offset) {
     if (!tileset) return;
     const int TILESET_TOP = 608; // пример — поправь в зависимости от твоего атласа
+    enum TileType { EMPTY, BRICK, GRASS, WATER, STEEL };
     for (size_t y = 0; y < grid.size(); ++y) {
         for (size_t x = 0; x < grid[y].size(); ++x) {
-            int id = grid[y][x];
-            if (id == 0) continue;
-            tile.setTextureRect(sf::IntRect(id * tileSize, TILESET_TOP, tileSize, tileSize));
+            if (grid[y][x] == BRICK)
+                tile.setTextureRect(sf::IntRect(512, 0, TILE_SIZE, TILE_SIZE));      // кирпич
+            else if (grid[y][x] == GRASS)
+                tile.setTextureRect(sf::IntRect(544, 64, TILE_SIZE, TILE_SIZE));     // трава
+            else if (grid[y][x] == WATER)
+                tile.setTextureRect(sf::IntRect(512, 64, TILE_SIZE, TILE_SIZE));     // вода
+            else if (grid[y][x] == STEEL)
+                tile.setTextureRect(sf::IntRect(512, 32, TILE_SIZE, TILE_SIZE));     // сталь
+            else continue; // пусто — не рисуем
+            // tile.setTextureRect(sf::IntRect(id * tileSize, TILESET_TOP, tileSize, tileSize));
             tile.setPosition(offset.x + x * tileSize, offset.y + y * tileSize);
             window.draw(tile);
+    //             enum TileType { EMPTY, BRICK, GRASS, WATER, STEEL };
+    // for (int y = 0; y < grid.size(); y++) {
+    //     for (int x = 0; x < grid[y].size(); x++) {
+    //         if (grid[y][x] == BRICK)
+    //             tileSprite.setTextureRect(sf::IntRect(512, 0, TILE_SIZE, TILE_SIZE));      // кирпич
+    //         else if (grid[y][x] == GRASS)
+    //             tileSprite.setTextureRect(sf::IntRect(544, 64, TILE_SIZE, TILE_SIZE));     // трава
+    //         else if (grid[y][x] == WATER)
+    //             tileSprite.setTextureRect(sf::IntRect(512, 64, TILE_SIZE, TILE_SIZE));     // вода
+    //         else if (grid[y][x] == STEEL)
+    //             tileSprite.setTextureRect(sf::IntRect(512, 32, TILE_SIZE, TILE_SIZE));     // сталь
+    //         else continue; // пусто — не рисуем
+
+    //         tileSprite.setPosition(x * TILE_SIZE, y * TILE_SIZE);
+    //         window.draw(tileSprite);
         }
     }
 }

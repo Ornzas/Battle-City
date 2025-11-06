@@ -1,8 +1,14 @@
 #include "PlayerTank.h"
 #include <SFML/Window/Keyboard.hpp>
+#include <cmath>
+#include "Map.h"
 
-PlayerTank::PlayerTank(float speed) : TankBase(speed) {
-    // текстуру/rect выставляем из Game при создании
+
+PlayerTank::PlayerTank(float speed)
+    : TankBase(speed)
+{
+    // начальные координаты
+    sprite.setPosition(100, 100);
 }
 
 void PlayerTank::handleInput(float dt, const Map& map) {
@@ -16,7 +22,7 @@ void PlayerTank::handleInput(float dt, const Map& map) {
         // нормализация (чтобы диагональ не ускоряла)
         float len = std::sqrt(dir.x*dir.x + dir.y*dir.y);
         dir /= len;
-        moveDir(dir, dt);
+        moveDir(dir, dt, map);
     }
 }
 

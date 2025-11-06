@@ -2,6 +2,9 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
+#include "Constants.h"  // вот это нужно
+// если используешь ресурсы:
+#include "Resources.h"
 
 class Map {
 public:
