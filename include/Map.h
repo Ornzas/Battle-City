@@ -14,6 +14,6 @@ public:
 
 private:
     sf::Texture texture;
-    sf::Sprite tileSprite;
+    sf::Sprite sprite;
     std::vector<std::vector<int>> grid;
 };

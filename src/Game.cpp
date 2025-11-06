@@ -1,14 +1,22 @@
 #include "Game.h"
 #include "Constants.h"
+#include "Resources.h"
 #include <iostream> // <-- обязательно для std::cerr
 
 Game::Game()
     : window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Battle City Clone") {
         window.setFramerateLimit(60);
 
+        if (!Resources::load()) {
+            std::cerr << "Ошибка загрузки текстур!\n";
+        }
+
         if (!map.loadFromFile("assets/maps/level00.txt")) {
             std::cerr << "Не удалось загрузить карту!\n";
         }
+        map.setAtlas(Resources::sprites);
+        player.setAtlas(Resources::sprites);
+        ui.setAtlas(Resources::sprites);
 }
 
 void Game::run() {

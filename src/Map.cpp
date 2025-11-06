@@ -61,17 +61,17 @@ void Map::draw(sf::RenderWindow& window) {
     for (int y = 0; y < grid.size(); y++) {
         for (int x = 0; x < grid[y].size(); x++) {
             if (grid[y][x] == BRICK)
-                tile.setTextureRect(sf::IntRect(512, 0, TILE_SIZE, TILE_SIZE));      // кирпич
+                tileSprite.setTextureRect(sf::IntRect(512, 0, TILE_SIZE, TILE_SIZE));      // кирпич
             else if (grid[y][x] == GRASS)
-                tile.setTextureRect(sf::IntRect(544, 64, TILE_SIZE, TILE_SIZE));     // трава
+                tileSprite.setTextureRect(sf::IntRect(544, 64, TILE_SIZE, TILE_SIZE));     // трава
             else if (grid[y][x] == WATER)
-                tile.setTextureRect(sf::IntRect(512, 64, TILE_SIZE, TILE_SIZE));     // вода
+                tileSprite.setTextureRect(sf::IntRect(512, 64, TILE_SIZE, TILE_SIZE));     // вода
             else if (grid[y][x] == STEEL)
-                tile.setTextureRect(sf::IntRect(512, 32, TILE_SIZE, TILE_SIZE));     // сталь
+                tileSprite.setTextureRect(sf::IntRect(512, 32, TILE_SIZE, TILE_SIZE));     // сталь
             else continue; // пусто — не рисуем
 
-            tile.setPosition(x * TILE_SIZE, y * TILE_SIZE);
-            window.draw(tile);
+            tileSprite.setPosition(x * TILE_SIZE, y * TILE_SIZE);
+            window.draw(tileSprite);
         }
     }
 }

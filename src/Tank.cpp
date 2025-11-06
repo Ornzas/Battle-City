@@ -11,6 +11,10 @@ Tank::Tank() {
     sprite.setPosition(80, 80);
 }
 
+void Tank::setAtlas(sf::Texture& texture) {
+    sprite.setTexture(texture);
+}
+
 void Tank::handleInput(float deltaTime, const Map& map) {
     bool moving = false;
     float distance = speed * deltaTime; // движение в пикселях за кадр
