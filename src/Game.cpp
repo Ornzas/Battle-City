@@ -16,7 +16,7 @@ Game::Game()
     backgroundSprite.setTexture(Resources::sprites);
     backgroundSprite.setTextureRect(sf::IntRect(0,0,SCREEN_WIDTH,SCREEN_HEIGHT));
 
-    map.setAtlasTexture(Resources::sprites);
+    //map.setAtlasTexture(window, Resources::sprites);
     if (!map.loadFromFile("assets/maps/level00.txt")) {
         std::cerr << "Не удалось загрузить карту!\n";
     }
@@ -24,13 +24,13 @@ Game::Game()
     // создаём игрока
     player = std::make_unique<PlayerTank>();
     player->setAtlasTexture(Resources::sprites);
-    player->setTextureRect(sf::IntRect(0, 672, 32, 32)); // поправь координаты
+    player->setTextureRect(sf::IntRect(0, 2, 32, 32)); // поправь координаты
 
     // враги
     for (int i = 0; i < 3; ++i) {
         auto e = std::make_unique<EnemyTank>();
         e->setAtlasTexture(Resources::sprites);
-        e->setTextureRect(sf::IntRect(32, 672, 32, 32)); // поправь
+        e->setTextureRect(sf::IntRect(257, 512, 32, 32)); // поправь
         enemies.push_back(std::move(e));
     }
 }
@@ -57,12 +57,12 @@ void Game::update(float dt) {
     // PlayerTank::handleInput принимает map — реализуй как раньше
     player->handleInput(dt, map);
 
-    for (auto& e : enemies) e->update(dt);
+    for (auto& e : enemies) e->update(dt, map);
 }
 
 void Game::render() {
     window.clear();
-    window.draw(backgroundSprite);
+    //map.setAtlasTexture(window, Resources::sprites);
     map.draw(window, mapOffset);
 
     // рисуем танков со смещением

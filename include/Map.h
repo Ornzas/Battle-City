@@ -10,7 +10,8 @@ class Map {
 public:
     Map();
     bool loadFromFile(const std::string& filename);
-    void setAtlasTexture(const sf::Texture& t) { tileset = &t; tile.setTexture(*tileset); }
+    // void setAtlasTexture(const sf::Texture& t) { tileset = &t; tile.setTexture(*tileset); }
+    void setAtlasTexture(sf::RenderWindow& window, const sf::Texture& t);
     void draw(sf::RenderWindow& window, const sf::Vector2f& offset);
     bool isBlocked(const sf::FloatRect& bounds) const;
 

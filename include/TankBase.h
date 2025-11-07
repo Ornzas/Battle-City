@@ -9,7 +9,8 @@ class TankBase : public DrawableEntity {
 public:
     TankBase(float speed = 100.f) : speed(speed), hp(3) {}
     virtual ~TankBase() = default;
-    virtual void update(float dt) = 0;
+    //virtual void update(float dt) = 0;
+    virtual void update(float dt, const Map& map) = 0;
     void moveDir(const sf::Vector2f& dir, float dt, const Map& map);
     void setTextureRect(const sf::IntRect& rect) { sprite.setTextureRect(rect); }
     void setAtlasTexture(const sf::Texture& tex) { sprite.setTexture(tex); }

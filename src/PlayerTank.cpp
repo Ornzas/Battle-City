@@ -26,6 +26,6 @@ void PlayerTank::handleInput(float dt, const Map& map) {
     }
 }
 
-void PlayerTank::update(float dt) {
+void PlayerTank::update(float dt, const Map& map) {
     // пусто — вызывай handleInput из Game::update с map
 }

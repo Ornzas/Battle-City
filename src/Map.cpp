@@ -24,6 +24,16 @@ bool Map::loadFromFile(const std::string& filename) {
     return true;
 }
 
+void Map::setAtlasTexture(sf::RenderWindow& window, const sf::Texture& t) {
+    // tile.setTextureRect(sf::IntRect(737, 0, tileSize, tileSize));;
+    for (size_t y = 0; y < MAP_WIDTH; ++y) {
+        for (size_t x = 0; x < MAP_HEIGHT; ++x) {
+            tile.setPosition(x * tileSize, y * tileSize);
+            window.draw(tile);
+        }
+    }
+}
+
 void Map::draw(sf::RenderWindow& window, const sf::Vector2f& offset) {
     if (!tileset) return;
     const int TILESET_TOP = 608; // пример — поправь в зависимости от твоего атласа
