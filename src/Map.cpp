@@ -25,16 +25,18 @@ bool Map::loadFromFile(const std::string& filename) {
 }
 
 void Map::setAtlasTexture(sf::RenderWindow& window, const sf::Texture& t) {
-    // tile.setTextureRect(sf::IntRect(737, 0, tileSize, tileSize));;
-    for (size_t y = 0; y < MAP_WIDTH; ++y) {
-        for (size_t x = 0; x < MAP_HEIGHT; ++x) {
+    tile.setTexture(t);
+    tile.setTextureRect(sf::IntRect(737, 0, tileSize, tileSize));;
+    for (size_t x = 0; x < MAP_WIDTH; ++x) {
+        for (size_t y = 0; y < MAP_HEIGHT; ++y) {
             tile.setPosition(x * tileSize, y * tileSize);
             window.draw(tile);
         }
     }
 }
 
-void Map::draw(sf::RenderWindow& window, const sf::Vector2f& offset) {
+void Map::draw(sf::RenderWindow& window, const sf::Vector2f& offset, const sf::Texture& t) {
+    tile.setTexture(t);
     if (!tileset) return;
     const int TILESET_TOP = 608; // пример — поправь в зависимости от твоего атласа
     enum TileType { EMPTY, BRICK, GRASS, WATER, STEEL };

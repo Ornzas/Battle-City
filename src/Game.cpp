@@ -30,7 +30,7 @@ Game::Game()
     for (int i = 0; i < 3; ++i) {
         auto e = std::make_unique<EnemyTank>();
         e->setAtlasTexture(Resources::sprites);
-        e->setTextureRect(sf::IntRect(257, 512, 32, 32)); // поправь
+        e->setTextureRect(sf::IntRect(257, 129, 32, 32)); // поправь
         enemies.push_back(std::move(e));
     }
 }
@@ -62,8 +62,8 @@ void Game::update(float dt) {
 
 void Game::render() {
     window.clear();
-    //map.setAtlasTexture(window, Resources::sprites);
-    map.draw(window, mapOffset);
+    map.setAtlasTexture(window, Resources::sprites);
+    map.draw(window, mapOffset, Resources::sprites);
 
     // рисуем танков со смещением
     sf::Sprite tmp = player->getSprite();
