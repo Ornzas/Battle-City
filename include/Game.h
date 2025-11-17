@@ -11,6 +11,7 @@ class Game {
 public:
     Game();
     void run();
+    const sf::Vector2f& getMapOffset() const { return mapOffset; }
 private:
     void processEvents();
     void update(float dt);
@@ -23,5 +24,5 @@ private:
     std::unique_ptr<PlayerTank> player;
     std::vector<std::unique_ptr<EnemyTank>> enemies;
 
-    sf::Vector2f mapOffset = {32.f, 32.f}; // смещение поля сверху/слева
+    sf::Vector2f mapOffset = {32.f, 16.f}; // смещение поля сверху/слева
 };

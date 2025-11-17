@@ -55,9 +55,9 @@ void Game::processEvents() {
 void Game::update(float dt) {
     // Обновляем игрока с передачей карты для проверки коллизий
     // PlayerTank::handleInput принимает map — реализуй как раньше
-    player->handleInput(dt, map);
+    player->handleInput(dt, map, mapOffset);
 
-    for (auto& e : enemies) e->update(dt, map);
+    for (auto& e : enemies) e->update(dt, map, mapOffset);
 }
 
 void Game::render() {

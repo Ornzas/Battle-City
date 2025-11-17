@@ -27,7 +27,7 @@ bool Map::loadFromFile(const std::string& filename) {
 void Map::setAtlasTexture(sf::RenderWindow& window, const sf::Texture& t) {
     tile.setTexture(t);
     tile.setTextureRect(sf::IntRect(737, 0, tileSize, tileSize));;
-    for (size_t x = 0; x < MAP_WIDTH; ++x) {
+    for (size_t x = 0; x < (MAP_WIDTH + UI_WIDTH); ++x) {
         for (size_t y = 0; y < MAP_HEIGHT; ++y) {
             tile.setPosition(x * tileSize, y * tileSize);
             window.draw(tile);
@@ -37,7 +37,7 @@ void Map::setAtlasTexture(sf::RenderWindow& window, const sf::Texture& t) {
 
 void Map::draw(sf::RenderWindow& window, const sf::Vector2f& offset, const sf::Texture& t) {
     tile.setTexture(t);
-    if (!tileset) return;
+    //if (!tileset) return;
     const int TILESET_TOP = 608; // пример — поправь в зависимости от твоего атласа
     enum TileType { EMPTY, BRICK, GRASS, WATER, STEEL };
     for (size_t y = 0; y < grid.size(); ++y) {
@@ -50,41 +50,41 @@ void Map::draw(sf::RenderWindow& window, const sf::Vector2f& offset, const sf::T
                 tile.setTextureRect(sf::IntRect(512, 64, TILE_SIZE, TILE_SIZE));     // вода
             else if (grid[y][x] == STEEL)
                 tile.setTextureRect(sf::IntRect(512, 32, TILE_SIZE, TILE_SIZE));     // сталь
-            else continue; // пусто — не рисуем
+            else 
+            tile.setTextureRect(sf::IntRect(620, 100, TILE_SIZE, TILE_SIZE)); // пусто — не рисуем
             // tile.setTextureRect(sf::IntRect(id * tileSize, TILESET_TOP, tileSize, tileSize));
             tile.setPosition(offset.x + x * tileSize, offset.y + y * tileSize);
             window.draw(tile);
-    //             enum TileType { EMPTY, BRICK, GRASS, WATER, STEEL };
-    // for (int y = 0; y < grid.size(); y++) {
-    //     for (int x = 0; x < grid[y].size(); x++) {
-    //         if (grid[y][x] == BRICK)
-    //             tileSprite.setTextureRect(sf::IntRect(512, 0, TILE_SIZE, TILE_SIZE));      // кирпич
-    //         else if (grid[y][x] == GRASS)
-    //             tileSprite.setTextureRect(sf::IntRect(544, 64, TILE_SIZE, TILE_SIZE));     // трава
-    //         else if (grid[y][x] == WATER)
-    //             tileSprite.setTextureRect(sf::IntRect(512, 64, TILE_SIZE, TILE_SIZE));     // вода
-    //         else if (grid[y][x] == STEEL)
-    //             tileSprite.setTextureRect(sf::IntRect(512, 32, TILE_SIZE, TILE_SIZE));     // сталь
-    //         else continue; // пусто — не рисуем
-
-    //         tileSprite.setPosition(x * TILE_SIZE, y * TILE_SIZE);
-    //         window.draw(tileSprite);
         }
     }
 }
 
-bool Map::isBlocked(const sf::FloatRect& bounds) const {
-    int x1 = bounds.left / tileSize;
-    int y1 = bounds.top / tileSize;
-    int x2 = (bounds.left + bounds.width) / tileSize;
-    int y2 = (bounds.top + bounds.height) / tileSize;
+bool Map::isBlocked(const sf::FloatRect& bounds, const sf::Vector2f& offset) const {
+    // Сдвигаем координаты, если карта не с нуля отрисована
+    float left = bounds.left - offset.x;
+    float top = bounds.top - offset.y;
+
+    if (left < 0.f || top < 0.f)
+        return true; // за границами сверху/слева
+
+    int x1 = static_cast<int>(left / tileSize);
+    int y1 = static_cast<int>(top / tileSize);
+    int x2 = static_cast<int>((left + bounds.width) / tileSize);
+    int y2 = static_cast<int>((top + bounds.height) / tileSize);
 
     for (int y = y1; y <= y2; ++y) {
         for (int x = x1; x <= x2; ++x) {
-            if (y < 0 || y >= (int)grid.size() || x < 0 || x >= (int)grid[y].size()) return true;
+            // Проверка выхода за границы карты
+            if (y < 0 || y >= static_cast<int>(grid.size()) ||
+                x < 0 || x >= static_cast<int>(grid[y].size()))
+                return true; // считаем, что за границей — стена
+
             int t = grid[y][x];
-            if (t == 1 || t == 2) return true; // 1,2 - блокирующие
+            // Препятствия: кирпичи, сталь и вода (если хочешь)
+            if (t == 1 || t == 2 || t == 3)
+                return true;
         }
     }
+
     return false;
 }

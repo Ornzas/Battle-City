@@ -13,7 +13,7 @@ public:
     // void setAtlasTexture(const sf::Texture& t) { tileset = &t; tile.setTexture(*tileset); }
     void setAtlasTexture(sf::RenderWindow& window, const sf::Texture& t);
     void draw(sf::RenderWindow& window, const sf::Vector2f& offset, const sf::Texture& t);
-    bool isBlocked(const sf::FloatRect& bounds) const;
+    bool isBlocked(const sf::FloatRect& bounds, const sf::Vector2f& offset) const;
 
 private:
     const sf::Texture* tileset = nullptr;

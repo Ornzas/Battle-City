@@ -13,7 +13,7 @@ EnemyTank::EnemyTank(float speed)
     std::mt19937 gen(rd()); // генератор Мерсенна
     std::uniform_int_distribution<int> directionRandom(0, 3); // диапазон от 0 до 10
 
-void EnemyTank::update(float dt, const Map& map) {
+void EnemyTank::update(float dt, const Map& map, const sf::Vector2f& mapOffset) {
     // примитивное поведение: двигаться вниз
     // sprite.move(0.f, speed * dt);
     sf::Vector2f dir(0.f, 0.f);
@@ -28,6 +28,6 @@ void EnemyTank::update(float dt, const Map& map) {
         // нормализация (чтобы диагональ не ускоряла)
         float len = std::sqrt(dir.x*dir.x + dir.y*dir.y);
         dir /= len;
-        moveDir(dir, dt, map);
+        moveDir(dir, dt, map, mapOffset);
     }
 }
